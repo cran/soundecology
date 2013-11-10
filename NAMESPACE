@@ -1,0 +1,7 @@
+importFrom(pracma, trapz)
+importFrom(oce, pwelch)
+importFrom(ineq, Gini)
+importFrom(vegan, diversity)
+import("tuneR", "seewave")
+
+exportPattern("^[[:alpha:]]+")
