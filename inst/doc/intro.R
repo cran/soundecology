@@ -75,7 +75,7 @@ summary(result)
 library(soundecology)
 data(tropicalsound)
 
-result <- acoustic_eveness(tropicalsound)
+result <- acoustic_evenness(tropicalsound)
 print(result$aei_left)
 
 summary(result)
