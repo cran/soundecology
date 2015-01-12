@@ -1,4 +1,3 @@
-
 ## ----results='show', message=FALSE, warning=FALSE------------------------
 library(soundecology)
 data(tropicalsound)
@@ -8,5 +7,4 @@ acoustic_diversity(tropicalsound)
 
 #Using the original code:
 acoustic_diversity(tropicalsound, shannon = FALSE)
-
 
