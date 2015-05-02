@@ -4,8 +4,8 @@
 # http://www.real.msu.edu/
 #
 # Also from: Kasten, Eric P., Stuart H. Gage, Jordan Fox, and Wooyeong Joo. 2012.
-#  The Remote Environmental Assessment Laboratory’s Acoustic Library: An Archive for 
-#  Studying Soundscape Ecology. Ecological Informatics 12: 50–67. doi:10.1016/j.ecoinf.2012.08.001.
+#  The Remote Environmental Assessment Laboratory's Acoustic Library: An Archive for 
+#  Studying Soundscape Ecology. Ecological Informatics 12: 50-67. doi:10.1016/j.ecoinf.2012.08.001.
 #
 # And
 #  Krause, Bernie, Stuart H. Gage, and Wooyeong Joo. 2011. 
@@ -22,9 +22,9 @@
 #  or Anthrophony (human-induced sounds) in a set of samples. 
 #  The equation for NDSI is: 
 #  
-#    NDSI = (β - α) / (β + α)
+#    NDSI = (Biophony - Anthrophony) / (Biophony + Anthrophony)
 #  
-#  where α, β represent the proportion of acoustic energy of Anthrophony and 
+#  where Anthrophony, Biophony represent the proportion of acoustic energy of Anthrophony and 
 #  Biophony, respectively. The value of the index ranges from -1 to 1. If the 
 #  value is negative, mechanical sounds dominate the soundscape. If the value 
 #  approaches 1, most of the soundscape consists of biological sounds at the site."
@@ -151,6 +151,8 @@ ndsi <- function(soundfile, fft_w = 1024, anthro_min = 1000, anthro_max = 2000, 
 		
 		#Result
 		NDSI_left <- (freqbins.SumBio - freqbins.Anthro) / (freqbins.SumBio + freqbins.Anthro)
+    biophony_left <- freqbins.SumBio
+		anthrophony_left <- freqbins.Anthro
 		
 		#Right channel
 		#right1 <- cutw(right, from = 0, to = length(right@left) / right@samp.rate)
@@ -219,7 +221,10 @@ ndsi <- function(soundfile, fft_w = 1024, anthro_min = 1000, anthro_max = 2000, 
 		freqbins.Anthro <- freqbins[1]
 		
 		NDSI_right <- (freqbins.SumBio - freqbins.Anthro) / (freqbins.SumBio + freqbins.Anthro)
-				
+		biophony_right <- freqbins.SumBio
+		anthrophony_right <- freqbins.Anthro		
+    
+    
     	cat("  Normalized Difference Soundscape Index:\n")
 		cat("\n   Left channel: ")
 		cat(NDSI_left)
@@ -331,6 +336,10 @@ ndsi <- function(soundfile, fft_w = 1024, anthro_min = 1000, anthro_max = 2000, 
 		freqbins.Anthro <- freqbins[1]
     
     NDSI_left <- (freqbins.SumBio - freqbins.Anthro) / (freqbins.SumBio + freqbins.Anthro)
+    biophony_left <- freqbins.SumBio
+    anthrophony_left <- freqbins.Anthro		
+    biophony_right <- NA
+    anthrophony_right <- NA
     
     #Right channel
 		NDSI_right = NA
@@ -339,5 +348,5 @@ ndsi <- function(soundfile, fft_w = 1024, anthro_min = 1000, anthro_max = 2000, 
 		cat(NDSI_left)
 		cat("\n\n")
 	}
-	invisible(list(ndsi_left = NDSI_left, ndsi_right = NDSI_right))
+	invisible(list(ndsi_left = NDSI_left, ndsi_right = NDSI_right, biophony_left = biophony_left, anthrophony_left = anthrophony_left, biophony_right = biophony_right, anthrophony_right = anthrophony_right))
 }
