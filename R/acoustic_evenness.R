@@ -52,6 +52,10 @@ acoustic_evenness <- function(soundfile, max_freq = 10000, db_threshold = -50, f
 	freq_per_row = 10
 	wlen = samplingrate/freq_per_row
 	
+	#Adding one to wlen if odd due to new behavior in seewave
+	# fix by JSueur
+	if(wlen%%2 == 1) {wlen <- wlen+1}
+	
 	#Stereo file
 	if (soundfile@stereo == TRUE) {
 		cat("\n This is a stereo file. Results will be given for each channel.\n")
